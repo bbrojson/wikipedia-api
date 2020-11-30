@@ -1,5 +1,4 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   Grid,
 } from '@material-ui/core';
@@ -12,8 +11,6 @@ type Props = {
 };
 
 export default function SearchList({ pages, highlightedText }: Props) {
-  const { t } = useTranslation();
-
   return (
     <Grid container spacing={3}>
       {
@@ -24,7 +21,6 @@ export default function SearchList({ pages, highlightedText }: Props) {
         }) => (
           <Grid key={pageid} item xs={12} md={4}>
             <PageBox
-              pageid={pageid}
               title={title}
               snippet={snippet}
               highlightedText={highlightedText}

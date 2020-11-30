@@ -1,14 +1,23 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  FormControl,
   TextField,
   Button,
   Grid,
-  Container,
 } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+  root: {
+    flexGrow: 1,
+  },
+  textField: {
+    width: '100%',
+  },
+});
 
 export default function HighlightForm() {
+  const classes = useStyles();
   const { t } = useTranslation();
 
   function hendleChangeInput(event: React.ChangeEvent<HTMLInputElement>) {
@@ -19,10 +28,11 @@ export default function HighlightForm() {
   }
 
   return (
-    <FormControl>
+    <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={12} md={8}>
           <TextField
+            className={classes.textField}
             variant="outlined"
             label={t('Tekst podświetlenia')}
             inputProps={{ 'aria-label': 'highlite text' }}
@@ -32,12 +42,13 @@ export default function HighlightForm() {
         <Grid item xs={12} md={4}>
           <Button
             variant="contained"
+            color="secondary"
             onClick={hendleClickButton}
           >
             {t('Podświetl wszystkie')}
           </Button>
         </Grid>
       </Grid>
-    </FormControl>
+    </div>
   );
 }

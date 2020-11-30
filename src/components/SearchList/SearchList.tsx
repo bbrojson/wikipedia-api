@@ -7,10 +7,11 @@ import PageBox from '../PageBox/PageBox';
 import { Page } from '../../types';
 
 type Props = {
+  highlightedText: string,
   pages: Page[],
 };
 
-export default function SearchList({ pages }: Props) {
+export default function SearchList({ pages, highlightedText }: Props) {
   const { t } = useTranslation();
 
   return (
@@ -26,6 +27,7 @@ export default function SearchList({ pages }: Props) {
               pageid={pageid}
               title={title}
               snippet={snippet}
+              highlightedText={highlightedText}
             />
           </Grid>
         ))

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   TextField,
@@ -6,6 +6,10 @@ import {
   Grid,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+
+type Props = {
+  setHighlightedText: React.Dispatch<React.SetStateAction<string>>,
+};
 
 const useStyles = makeStyles({
   root: {
@@ -16,15 +20,17 @@ const useStyles = makeStyles({
   },
 });
 
-export default function HighlightForm() {
+export default function HighlightForm({ setHighlightedText }: Props) {
   const classes = useStyles();
   const { t } = useTranslation();
+  const [text, setText] = useState('');
 
   function hendleChangeInput(event: React.ChangeEvent<HTMLInputElement>) {
     const string = event.target.value.toLowerCase();
-    console.log(string);
+    setText(string);
   }
   function hendleClickButton() {
+    setHighlightedText(text);
   }
 
   return (

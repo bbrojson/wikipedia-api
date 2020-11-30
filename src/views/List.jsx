@@ -10,6 +10,8 @@ import SearchList from '../components/SearchList/SearchList';
 
 export default function List() {
   const [pages, setPages] = useState([]);
+  const [highlightedText, setHighlightedText] = useState('');
+
   useEffect(() => {
     setPages([{
       pageid: 11089416,
@@ -25,10 +27,15 @@ export default function List() {
             <SearchTextInput />
           </Grid>
           <Grid item xs={12} md={8}>
-            <HighlightForm />
+            <HighlightForm
+              setHighlightedText={setHighlightedText}
+            />
           </Grid>
           <Grid item xs={12} md={12}>
-            <SearchList pages={pages} />
+            <SearchList
+              highlightedText={highlightedText}
+              pages={pages}
+            />
           </Grid>
         </Grid>
       </Container>

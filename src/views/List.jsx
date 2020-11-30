@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Grid,
@@ -19,7 +19,6 @@ export default function List() {
   const [pages, setPages] = useState([]);
   const [highlightedText, setHighlightedText] = useState('');
   const [searchText, setSearchText] = useState('');
-  const timeout = useRef();
 
   const fetchSearchText = (text) => {
     if (text === '') {
@@ -41,11 +40,11 @@ export default function List() {
   };
 
   useEffect(() => {
-    timeout.current = setTimeout(() => {
+    const timeout = setTimeout(() => {
       fetchSearchText(searchText);
     }, FETCH_DELAY);
     return () => {
-      clearInterval(timeout.current);
+      clearInterval(timeout);
     };
   }, [searchText]);
 

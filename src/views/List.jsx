@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Grid,
@@ -10,30 +10,43 @@ import HighlightForm from '../components/HighlightForm/HighlightForm';
 import SearchList from '../components/SearchList/SearchList';
 import { api } from '../api/api';
 
+const FETCH_DELAY = 605;
+
 export default function List() {
   const { t } = useTranslation();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [pages, setPages] = useState([]);
   const [highlightedText, setHighlightedText] = useState('');
   const [searchText, setSearchText] = useState('');
+  const timeout = useRef();
+
+  const fetchSearchText = (text) => {
+    if (text === '') {
+      return;
+    }
+    setLoading(true);
+    api.getPages(text)
+      .then((data) => {
+        const { query: { search } } = data;
+        return search;
+      })
+      .then((data) => {
+        setPages(data);
+        setLoading(false);
+      })
+      .catch(() => {
+        setError(true);
+      });
+  };
 
   useEffect(() => {
-    if (searchText !== '') {
-      setLoading(true);
-      api.getPages(searchText)
-        .then((data) => {
-          const { query: { search } } = data;
-          return search;
-        })
-        .then((data) => {
-          setPages(data);
-          setLoading(false);
-        })
-        .catch(() => {
-          setError(true);
-        });
-    }
+    timeout.current = setTimeout(() => {
+      fetchSearchText(searchText);
+    }, FETCH_DELAY);
+    return () => {
+      clearInterval(timeout.current);
+    };
   }, [searchText]);
 
   if (error) {

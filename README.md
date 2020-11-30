@@ -9,7 +9,6 @@ Błażej Brojek
 blazej.brojek@gmail.com
 
 # Stack:
-TODO_FILL_LIST
 - TypeScript
 - React
 - Material-UI

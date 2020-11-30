@@ -19,8 +19,8 @@ class HttpClient {
     });
   }
 
-  public getPages(url: string) {
-    return this.get<PagesResponse>(url);
+  public getPages(searchText: string) {
+    return this.get<PagesResponse>(`https://en.wikipedia.org/w/api.php?action=query&list=search&origin=*&format=json&srsearch=${searchText}`);
   }
 }
 

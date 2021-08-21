@@ -5,8 +5,8 @@ Odebrano mail o 17:00
 
 Marge 21:00
 
-Błażej Brojek
-blazej.brojek@gmail.com
+Błażej Brojson
+blazej.brojson@gmail.com
 
 # Stack:
 - TypeScript
